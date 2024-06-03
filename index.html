@@ -12,6 +12,14 @@
     <title></title>
     <script src="https://telegram.org/js/telegram-web-app.js?1"></script>
     <script>
+        function urlSafeDecode(urlencoded) {
+          try {
+            urlencoded = urlencoded.replace(/\+/g, '%20');
+            return decodeURIComponent(urlencoded);
+          } catch (e) {
+            return urlencoded;
+          }
+        }
         function urlParseQueryString(queryString) {
           var params = {};
           if (!queryString.length) {
