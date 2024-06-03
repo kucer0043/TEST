@@ -12,6 +12,29 @@
     <title></title>
     <script src="https://telegram.org/js/telegram-web-app.js?1"></script>
     <script>
+        function urlParseHashParams(locationHash) {
+              locationHash = locationHash.replace(/^#/, '');
+              var params = {};
+              if (!locationHash.length) {
+                return params;
+              }
+              if (locationHash.indexOf('=') < 0 && locationHash.indexOf('?') < 0) {
+                params._path = urlSafeDecode(locationHash);
+                return params;
+              }
+              var qIndex = locationHash.indexOf('?');
+              if (qIndex >= 0) {
+                var pathParam = locationHash.substr(0, qIndex);
+                params._path = urlSafeDecode(pathParam);
+                locationHash = locationHash.substr(qIndex + 1);
+              }
+              var query_params = urlParseQueryString(locationHash);
+              for (var k in query_params) {
+                params[k] = query_params[k];
+              }
+              return params;
+        }
+                
         function setThemeClass() {
             document.documentElement.className = Telegram.WebApp.colorScheme;
         }
